@@ -1,0 +1,294 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:root {
+  --fonts: Helvetica, Arial, sans-serif;
+  --color-paperwhite: #ffe;
+  --color-error: #a77;
+  --color-white: #eee;
+  --color-accent: #aa6;
+  --color-accent-dark: #663;
+  --color-accent-light: #cc8;
+}
+
+html {
+  background-color: var(--color-paperwhite);
+  box-sizing: border-box;
+  font-family: 'Georgia', serif;
+}
+
+body {
+  margin-top: 2rem;
+  padding: 0.5rem;
+
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  font-family: var(--fonts);
+}
+
+main {
+  margin: auto;
+  max-width: 900px;
+  width: 100%;
+}
+
+header{
+  border: 1px solid black;
+  border-radius: 1rem;
+}
+
+header section{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+header section h1{
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  font-size: 6.0vh;
+  font-weight: 500;
+}
+
+header .innskraning{
+  display: flex;
+}
+
+header .welcome{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-right: 1rem;
+}
+
+header .innskra{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-right: 1rem;
+}
+
+header .utskra{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-right: 1rem;
+}
+
+input,
+textarea,
+button {
+  font-family: 'Georgia', sans-serif;
+  font-size: 20px;
+}
+
+h1{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 3.0vh;
+}
+
+ul {
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+  list-style-type: none;
+}
+
+li {
+  font-size: 2rem;
+  font-family: var(--fonts);
+  font-weight: 600;
+}
+
+li:first-child{
+  margin-top: 0;
+  padding-top: 0;
+}
+
+li:last-child{
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.form {
+  align-items: left;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form--separated {
+  border-bottom: 2px dotted var(--color-accent);
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.field label {
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid var(--color-accent);
+  border-radius: 10px;
+  flex: 1;
+  padding: 8px;
+  width: 60%;
+}
+
+.field--textarea {
+  align-items: flex-start;
+}
+
+.field textarea {
+  flex: 1;
+  min-height: 3rem;
+}
+
+.field--invalid input,
+.field--invalid textarea {
+  background-color: #fbb;
+  border-color: var(--color-error);
+}
+
+.button {
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: background-color ease-in 300ms;
+  width: 40%;
+}
+
+.button--margin{
+  margin-bottom: 2rem;
+}
+
+.registrations {
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.registrations h1 {
+  font-family: var(--fonts);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.registrations h2 {
+  font-size: 1.5rem;
+  font-weight: 200;
+  margin-bottom: 2rem;
+}
+
+.registrations ul {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
+  list-style: none;
+}
+
+.registrations li {
+  margin-bottom: 0.5rem;
+  font-size: 20px;
+  font-family: var(--fonts);
+  font-weight: 600;
+}
+
+.registrations-skak {
+  font-size: 16px;
+  font-style: italic;
+}
+
+.registrations__title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  background-color: gray;
+}
+
+.villa{
+  display: block;
+  flex-direction: column;
+}
+
+.villa h1{
+  font-family: var(--fonts);
+  font-size: 1rem;
+}
+
+.villa ul {
+  list-style-type: none;
+}
+
+.villa li{
+  font-size: 1rem;
+  font-family: var(--fonts);
+  font-weight: 500;
+}
+
+hr {
+  width: 100%;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 640px) {
+  header{
+    margin-left: 0px;
+    margin-right: 10px;
+  }
+  
+  header section{
+    display: inline-block;
+  }
+
+  header .innskraning{
+    display: flex;
+  }
+  
+  header .welcome{
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 2rem;
+  }
+  
+  header .innskra{
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 3rem;
+  }
+  
+  header .utskra{
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+
+  main {
+    margin: 10px;
+  }
+
+  hr{
+    width: 95%;
+    margin-right: 1rem;
+  }
+}

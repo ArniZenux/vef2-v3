@@ -1,0 +1,47 @@
+<%- include('header') -%>
+
+<section class="registrations">
+
+<form class="form" method="post" action="/admin/slug" autocomplete="off">
+
+  <% for(let event of events ) { %>
+
+    <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
+      <label for="name">Nafn</label>
+      <input type="text" name="name" id="name" value="<%= event.name %>" class="">
+    </div>  
+
+    <div class="field<%= locals.isInvalid('slug', errors) ?  ' field--invalid' : '' %>">
+      <input type="hidden" name="slug" id="slug" value="<%= event.slug %>" class="">
+    </div>
+
+    <div class="field field--textarea<%= locals.isInvalid('comment', errors) ?  ' field--invalid' : '' %>">
+      <label for="comment">Lýsing</label>
+      <textarea name="comment"> <%= event.description %> </textarea>
+    </div>
+  <% } %>
+
+    <div class="villa">
+  
+      <% if (errors.length > 0) { %>
+      <h2>Villur:</h2>
+      <ul>
+        <% errors.forEach((error) => { %>
+          <li><label for="<%= error.param %>"><%= error.msg %></label></li>
+        <% }); %>
+      </ul>
+    <% } %>
+  
+    </div>
+
+  <button class="button">Uppfæra</button>
+
+</form>
+
+<hr> 
+
+<p><a href="/admin/">Til baka</a></p>
+
+</section>
+
+<%- include('footer') -%>

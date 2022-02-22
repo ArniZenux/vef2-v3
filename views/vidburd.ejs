@@ -1,0 +1,66 @@
+<%- include('header') -%>
+
+<section class="registrations">
+
+<% for(let event of events ) { %>
+   <h1> <%= event.name %> </h1>
+   <h2> <%= event.description %> </h2> 
+<% } %>
+
+
+<h1>Skráningar á viðburði</h1>
+
+<ul>
+<% if(users.length === 0) { %>
+  <h2 class="registrations__empty">Engin hefur skráð sig á þennan viðburð</h2>
+<% } else { %>
+  <% for(let user of users ) { %>
+    <li> <%= user.name %> </li>
+    <p class="registrations-skak"> <%= user.comment %> </p> 
+  <% } %>
+<% } %>
+</ul>
+<hr>
+<h1>Skráðu þig</h1>
+
+<form method="post" action="/:slug" enctype="application/x-www-form-urlencoded">
+  
+  <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
+    <label for="name">Nafn</label>
+    <input type="text" name="name" class="">
+  </div>
+
+  <% for(let event of events) { %>
+  <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
+      <input type="hidden" name="id" value="<%= event.id %>" class="">
+  </div>
+  <% } %>
+
+  <div class="field field--textarea<%= locals.isInvalid('comment', errors) ?  ' field--invalid' : '' %>">
+    <label for="comment">Athugasemd</label>
+    <textarea name="comment"></textarea>
+  </div>
+  
+  <div class="villa">
+  
+    <% if (errors.length > 0) { %>
+    <h2>Villur:</h2>
+    <ul>
+      <% errors.forEach((error) => { %>
+        <li><label for="<%= error.param %>"><%= error.msg %></label></li>
+      <% }); %>
+    </ul>
+  <% } %>
+
+  </div>
+  
+  <button class="button button--margin">Skrá mig</button>
+</form>
+
+<hr>
+
+<p><a href="/">Til baka</a></p>
+
+</section>
+
+<%- include('footer') -%>

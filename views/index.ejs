@@ -1,0 +1,15 @@
+<%- include('header') -%>
+
+<ul>
+<% if(events) { %>
+	<% for(let event of events ) { %>
+		<li> <a href="<%=event.slug %>" > <%= event.name %> </a> </li>
+	 	<p> <%= event.description %> </p> 
+	 	<br>
+	<% } %>
+<% } else { %>
+	<li> Engir viðburðir </li> 
+<% } %>
+</ul>
+
+<%- include('footer') -%>
