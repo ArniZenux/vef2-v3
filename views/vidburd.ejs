@@ -2,32 +2,38 @@
 
 <section class="registrations">
 
-<% for(let event of events ) { %>
-   <h1> <%= event.name %> </h1>
-   <h2> <%= event.description %> </h2> 
-<% } %>
+<% if (validated) { %>
 
+  <%- include('update') -%>
 
-<h1>Skráningar á viðburði</h1>
+<% } else { %>
+
+  <% for(let event of events ) { %>
+    <h1> <%= event.namevidburdur %> </h1>
+    <h2> <%= event.description %> </h2>
+  <% } %>
 
 <ul>
 <% if(users.length === 0) { %>
-  <h2 class="registrations__empty">Engin hefur skráð sig á þennan viðburð</h2>
+  <h2 class="registrations__title">Engin hefur skráð sig á þennan viðburð</h2>
 <% } else { %>
   <% for(let user of users ) { %>
-    <li> <%= user.name %> </li>
+    <li> <%= user.nameskra %> </li>
     <p class="registrations-skak"> <%= user.comment %> </p> 
   <% } %>
 <% } %>
 </ul>
-<hr>
-<h1>Skráðu þig</h1>
 
-<form method="post" action="/:slug" enctype="application/x-www-form-urlencoded">
+<hr>
+
+<h1>Skráðu þig</h1>
+<% if(validated) { %>
+  <!-- 
+<form method="post" action="/:slug" autocomplete="off">
   
-  <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
-    <label for="name">Nafn</label>
-    <input type="text" name="name" class="">
+  <div class="field <%= locals.isInvalid('nameskra', errors) ?  ' field--invalid' : '' %>">
+    <label for="nameskra">Nafn</label>
+    <input type="text" name="nameskra" id="nameskra" value="<%= formData.nameskra %>" class="">
   </div>
 
   <% for(let event of events) { %>
@@ -56,6 +62,9 @@
   
   <button class="button button--margin">Skrá mig</button>
 </form>
+-->
+  <% } %>  
+<% } %>
 
 <hr>
 

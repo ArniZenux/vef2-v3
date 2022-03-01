@@ -3,7 +3,12 @@
 <div class="skraInn">
 <h1></h1>
 
-<form class="form" method="post" action="/admin/login" autocomplete="off">
+<form class="form" method="post" action="/notandi/" autocomplete="off">
+  
+   <div class="field<%= locals.isInvalid('username', errors) ?  ' field--invalid' : '' %>">
+    <label for="nameuser">Nafn</label>
+    <input type="text" name="nameuser" id="nameuser">
+  </div>
 
   <div class="field<%= locals.isInvalid('username', errors) ?  ' field--invalid' : '' %>">
     <label for="username">Notendanafn</label>
@@ -32,7 +37,7 @@
 
   </div>
 
- <button class="button button--margin">Innskrá</button>
+ <button class="button button--margin">Nýskrá</button>
 </form>
 
 <hr>

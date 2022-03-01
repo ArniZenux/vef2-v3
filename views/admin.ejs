@@ -2,46 +2,9 @@
 
 <section class="registrations">
 
-<ul>
-<% for(let event of events ) { %>
-	 <li> <h3> <%= event.name %> </h3> </li>
-	 <p> <%= event.description %> </p>
-	 <a href="<%= event.slug %>">Uppfæra viðburð</a> 
- <br><br>
-<% } %>
-</ul>
-<hr>
+<%- include('list') -%>
 
 <h1>Skrá nýjan viðburð</h1>
-
-<form class="form" method="post" action="/admin/skraVidburdi">
-
-  <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
-    <label for="name">Nafn</label>
-    <input type="text" name="name" id="name" value="<%= formData.name %>" class="">
-  </div>
-
-  <div class="field field--textarea<%= locals.isInvalid('comment', errors) ?  ' field--invalid' : '' %>">
-    <label for="comment">Lýsing</label>
-    <textarea name="comment"></textarea>
-  </div>
-  
-  <div class="villa">
-  
-    <% if (errors.length > 0) { %>
-    <h2>Villur:</h2>
-    <ul>
-      <% errors.forEach((error) => { %>
-        <li><label for="<%= error.param %>"><%= error.msg %></label></li>
-      <% }); %>
-    </ul>
-  <% } %>
-
-  </div>
-
-  <button class="button button--small button--margin">Skrá viðburð</button>
-
-</form>
 
 </section>
 

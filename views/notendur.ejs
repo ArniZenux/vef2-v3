@@ -1,0 +1,28 @@
+<%- include('header') -%>
+
+<section class="registrations">
+<% if( !BirtaOne )  { %>
+  <ul>
+    <% if(events) { %>
+      <% for(let event of events ) { %>
+        <li> <a href="<%= event.id %>"> <%= event.nameuser %> </a> </li>
+        <p> <%= event.username %> </p>
+        <% } %>
+      <% } else { %>
+    <li> Engir notendur </li> 
+    <% } %>
+  </ul>
+<% } else { %>
+   <ul>
+     <% if(events) { %>
+      <% for(let event of events ) { %>
+       <li><%= event.nameuser %> </a> </li>
+       <% } %>
+    <% } else { %>
+      <li>Enginn upplýsingar um notandi</li>
+      <% } %> 
+  </ul>
+<% } %>
+</section>
+
+<%- include('footer') -%>

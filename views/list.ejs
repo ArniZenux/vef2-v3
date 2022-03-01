@@ -1,0 +1,13 @@
+<ul>
+  <% if(events) { %>
+    <% for(let event of events ) { %>
+      <li> <%= event.namevidburdur %> </li>
+      <p>  <%= event.description %> </p>
+      <a href="/admin/<%= event.slug %>">Uppfæra viðburð</a> 
+      <p> Ábyrgðarmaður á viðburði : <%= event.nameuser %> </p> 
+      <br>
+      <% } %>
+    <% } else { %>
+  <li> Engir viðburðir </li> 
+  <% } %>
+</ul>

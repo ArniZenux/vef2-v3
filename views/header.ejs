@@ -1,19 +1,22 @@
 <!doctype html>
 <html lang="is">
-
-<head>
-  <meta charset="utf-8">
-  <title><%= title %></title>
-  <link rel="stylesheet" href="/styles.css">
-</head>
-<main>
-<header>
-  <section>
-    <h1><%- title %></h1>
-    <div class="innskraning">
-      <div class="welcome">Admin</div>
-      <div class="innskra"><a href="/admin/login">Innskrá</a></div>
-      <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
-    </div>
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <main>
+  <header>
+    <section>
+      <h1><%= title %></h1>
+       <% if(validated) { %>
+          <div class="stjornandi"><a href="/admin/">Stjórnandi</a></div> 
+          <div class="notandi"><a href="/notandi/">Lista af notenda</a></div> 
+          <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
+        <% } else { %>
+        <!-- <div class="nyskra"><a href="/notandi/">Nýskrá</a></div> -->
+        <div class="innskra"><a href="/admin/login">Innskrá</a></div>
+  <% } %>
   </section>
-</header>
+  </header>
+ 

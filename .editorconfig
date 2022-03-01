@@ -1,2 +1,12 @@
-indent_style = tab
-indent_size = 1
+# Samræmir skrár milli stýrikerfa
+# Í ritli ætti að sækja plugin sem passar upp á þetta, t.d. EditorConfig for VS Code
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true

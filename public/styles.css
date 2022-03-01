@@ -53,13 +53,12 @@ header{
 header section{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 header section h1{
   margin-top: 0.5rem;
   margin-left: 1rem;
-  font-size: 6.0vh;
+  font-size: 5.0vh;
   font-weight: 500;
 }
 
@@ -73,15 +72,38 @@ header .welcome{
   margin-right: 1rem;
 }
 
+header .nyskra{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 0.5rem;
+}
+
+header .notandi{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 0.5rem;
+}
+
+header .stjornandi{
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-left: 5rem;
+  margin-right: 0.5rem;
+}
+
 header .innskra{
   font-size: 1rem;
   margin-top: 2rem;
-  margin-right: 1rem;
+  margin-left: 5rem;
+  margin-right: 0.5rem;
 }
 
 header .utskra{
   font-size: 1rem;
   margin-top: 2rem;
+  margin-left: 5rem;
   margin-right: 1rem;
 }
 
@@ -202,9 +224,9 @@ li:last-child{
 }
 
 .registrations ul {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   margin-left: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   list-style: none;
 }
 
@@ -216,14 +238,13 @@ li:last-child{
 }
 
 .registrations-skak {
-  font-size: 16px;
+  font-size: 15px;
   font-style: italic;
 }
 
 .registrations__title {
   font-size: 2rem;
   margin-bottom: 1rem;
-  background-color: gray;
 }
 
 .villa{
@@ -255,6 +276,7 @@ hr {
   header{
     margin-left: 0px;
     margin-right: 10px;
+    padding-bottom: 1rem;
   }
   
   header section{
@@ -267,19 +289,25 @@ hr {
   
   header .welcome{
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-left: 2rem;
   }
   
   header .innskra{
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-left: 3rem;
   }
   
+   header .nyskra{
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+  }
+
   header .utskra{
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-left: 1rem;
   }
 

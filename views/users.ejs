@@ -1,0 +1,18 @@
+<%- include('header') -%>
+
+<section class="registrations">
+
+<ul>
+<% for(let event of events ) { %>
+	 <li> <h3> <%= event.nameuser %> </h3> </li>
+	 <p> <%= event.username %> </p>
+	 <a href="<%= event.id %>">Uppfæra notanda</a>
+ <br><br>
+<% } %>
+</ul>
+<hr>
+
+
+</section>
+
+<%- include('footer') -%>

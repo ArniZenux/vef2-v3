@@ -1,14 +1,10 @@
-<%- include('header') -%>
-
-<section class="registrations">
-
-<form class="form" method="post" action="/admin/slug" autocomplete="off">
+<form class="form" method="post" action="/admin/:slug" autocomplete="off">
 
   <% for(let event of events ) { %>
 
-    <div class="field<%= locals.isInvalid('name', errors) ?  ' field--invalid' : '' %>">
-      <label for="name">Nafn</label>
-      <input type="text" name="name" id="name" value="<%= event.name %>" class="">
+    <div class="field<%= locals.isInvalid('namevidburdur', errors) ?  ' field--invalid' : '' %>">
+      <label for="namevidburdur">Nafn</label>
+      <input type="text" name="namevidburdur" id="namevidburdur" value="<%= event.namevidburdur %>" class="">
     </div>  
 
     <div class="field<%= locals.isInvalid('slug', errors) ?  ' field--invalid' : '' %>">
@@ -37,11 +33,3 @@
   <button class="button">Uppfæra</button>
 
 </form>
-
-<hr> 
-
-<p><a href="/admin/">Til baka</a></p>
-
-</section>
-
-<%- include('footer') -%>

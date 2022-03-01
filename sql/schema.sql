@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS vidburdur (
   id serial primary key,
-  name varchar(64) not null unique,
+  namevidburdur varchar(64) not null unique,
   slug varchar(64) not null,
   description varchar(400),
   created timestamp with time zone not null default current_timestamp,
@@ -9,14 +9,15 @@ CREATE TABLE IF NOT EXISTS vidburdur (
 
 CREATE TABLE IF NOT EXISTS users (
   id serial primary key,
-  name varchar(64) not null, 
+  nameuser varchar(64) not null, 
   username character varying(64) not null,
-  password character varying(256) not null
+  password character varying(256) not null,
+  admin boolean not null
 );
 
 CREATE TABLE IF NOT EXISTS skraning (
   id serial primary key,
-  name varchar(64) not null,
+  nameskra varchar(64) not null,
   comment varchar(64),
   eventid integer not null, 
   userid integer not null, 
@@ -27,8 +28,18 @@ CREATE TABLE IF NOT EXISTS skraning (
 
 -- Lykilorð: "123"
 INSERT INTO users 
-(name, username, password) 
+(nameuser, username, password, admin) 
 VALUES ('Arni', 
         'admin', 
-        '$2a$11$pgj3.zySyFOvIQEpD7W6Aund1Tw.BFarXxgLJxLbrzIv/4Nteisii'
+        '$2a$11$pgj3.zySyFOvIQEpD7W6Aund1Tw.BFarXxgLJxLbrzIv/4Nteisii',
+        true
+      );
+
+-- Lykilorð: "123"
+INSERT INTO users 
+(nameuser, username, password, admin) 
+VALUES ('Anna', 
+        'anna', 
+        '$2a$11$pgj3.zySyFOvIQEpD7W6Aund1Tw.BFarXxgLJxLbrzIv/4Nteisii',
+        false
       );
