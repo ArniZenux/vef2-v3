@@ -1,22 +1,25 @@
 INSERT INTO vidburdur 
-(namevidburdur, slug, description ) 
+(namevidburdur, slug, description, userid ) 
 VALUES ('Ski school', 
         'ski-school', 
-        'Saturday in Skalfell'
+        'Saturday in Skalfell',
+        1
       );
 
 INSERT INTO vidburdur 
-(namevidburdur, slug, description ) 
+(namevidburdur, slug, description, userid ) 
 VALUES ('Handball',
         'handball', 
-        'Handball school'
+        'Handball school',
+        1
       );
 
 INSERT INTO vidburdur 
-(namevidburdur, slug, description ) 
+(namevidburdur, slug, description, userid ) 
 VALUES ('NBA school', 
         'nba-school', 
-        'To be master!'
+        'To be master!',
+        2
       );
 
 INSERT INTO skraning 
@@ -40,5 +43,5 @@ INSERT INTO skraning
 VALUES ('Micheal Jordan', 
         'I am best player in the world', 
         3,
-        1
+        2
       );

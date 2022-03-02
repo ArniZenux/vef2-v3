@@ -39,30 +39,24 @@ const sanitizationMiddleware = [
 async function index(req, res) {
   const validated = req.isAuthenticated();
   const title = 'Viðburðasíðan';
+  
+  console.log(validated); 
 
   const sqlVidburdur = `
     SELECT 
       *
     FROM 
-      vidburdur, skraning, users 
+      vidburdur, users 
     WHERE 
-      vidburdur.id=skraning.eventid 
-    AND 
-      users.id=skraning.userid;
+      vidburdur.userid=users.id 
   `;
-  /*const sqlVidburdur = `
-    SELECT 
-      *
-    FROM 
-      vidburdur;
-    `;
-  */
+  
   const rows = await list(sqlVidburdur);
   const registrations = [];
-
+  const user = { req };
   const errors = [];
 
-  res.render('index', {errors, events: rows, registrations, title, admin: false, validated });
+  res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
 }
 
 /**     
@@ -72,7 +66,8 @@ async function getVidburdur(req, res){
   const { slug } = req.params;
   const title = 'Viðburðasíðan';
   const validated = req.isAuthenticated();
- 
+  const user = { req };
+
   const sql = `
     SELECT * FROM 
       vidburdur 
@@ -96,7 +91,7 @@ async function getVidburdur(req, res){
     const rows = await list(sql, [slug]); 
     const rowsUser = await list(sqlUser, [slug]); 
 
-    res.render('vidburd', {errors, title, events : rows, users : rowsUser, formData, validated, admin : false });
+    res.render('vidburd', {errors, title, events : rows, users : rowsUser, user, formData, validated, admin : false });
   }
   catch(e){
     console.error(e); 
@@ -107,8 +102,11 @@ async function getVidburdur(req, res){
  *  POST - að skrá í skraning - table
  */
 async function indexSlugPost(req, res){
-  const user = [req.body.name, req.body.comment, req.body.id, '1'];
-  return res.redirect('/');
+  const user = [req.body.name, req.body.comment, req.body.id, req.id];
+  
+  console.log(user); 
+
+ /*return res.redirect('/');
 
   const sql = `
     INSERT INTO 
@@ -129,7 +127,8 @@ async function indexSlugPost(req, res){
     return res.redirect('/');
   }
 
-  return success;
+  return success;*/
+
 }
 
 router.get('/', catchErrors(index));

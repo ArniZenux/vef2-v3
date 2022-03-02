@@ -9,14 +9,16 @@
   <header>
     <section>
       <h1><%= title %></h1>
-       <% if(validated) { %>
+       <% if(user.admin == true) { %>
           <div class="stjornandi"><a href="/admin/">Stjórnandi</a></div> 
           <div class="notandi"><a href="/notandi/">Lista af notenda</a></div> 
           <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
+        <% } else if(user.admin == false) { %> 
+          <div class="stjornandi"><%= user.nameuser %></div> 
+          <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
         <% } else { %>
-        <!-- <div class="nyskra"><a href="/notandi/">Nýskrá</a></div> -->
+        <!-- <div class="nyskra"><a href="/notandi/register">Nýskrá</a></div>-->
         <div class="innskra"><a href="/admin/login">Innskrá</a></div>
-  <% } %>
+       <% } %>
   </section>
-  </header>
- 
+  </header> 

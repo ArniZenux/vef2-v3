@@ -6,7 +6,6 @@
     <% if(events) { %>
       <% for(let event of events ) { %>
         <li> <a href="<%= event.id %>"> <%= event.nameuser %> </a> </li>
-        <p> <%= event.username %> </p>
         <% } %>
       <% } else { %>
     <li> Engir notendur </li> 
@@ -16,7 +15,9 @@
    <ul>
      <% if(events) { %>
       <% for(let event of events ) { %>
-       <li><%= event.nameuser %> </a> </li>
+       <li>Notandi: <%= event.nameuser %></li>
+       <li>Bjó til: <%= event.namevidburdur %></li>
+       <li>Dagur: <%= event.created %></li>
        <% } %>
     <% } else { %>
       <li>Enginn upplýsingar um notandi</li>

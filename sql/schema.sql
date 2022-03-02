@@ -1,18 +1,20 @@
-CREATE TABLE IF NOT EXISTS vidburdur (
-  id serial primary key,
-  namevidburdur varchar(64) not null unique,
-  slug varchar(64) not null,
-  description varchar(400),
-  created timestamp with time zone not null default current_timestamp,
-  updated timestamp with time zone not null default current_timestamp
-);
-
 CREATE TABLE IF NOT EXISTS users (
   id serial primary key,
   nameuser varchar(64) not null, 
   username character varying(64) not null,
   password character varying(256) not null,
   admin boolean not null
+);
+
+CREATE TABLE IF NOT EXISTS vidburdur (
+  id serial primary key,
+  namevidburdur varchar(64) not null unique,
+  slug varchar(64) not null,
+  description varchar(400),
+  userid integer not null,
+  created timestamp with time zone not null default current_timestamp,
+  updated timestamp with time zone not null default current_timestamp,
+  constraint userid foreign key (userid) references users (id)  
 );
 
 CREATE TABLE IF NOT EXISTS skraning (

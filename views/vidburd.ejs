@@ -26,9 +26,9 @@
 
 <hr>
 
-<h1>Skráðu þig</h1>
-<% if(validated) { %>
-  <!-- 
+<h1>Innskrá til þess að geta skráð sig</h1>
+<% if(!user.admin) { %>
+<!-- 
 <form method="post" action="/:slug" autocomplete="off">
   
   <div class="field <%= locals.isInvalid('nameskra', errors) ?  ' field--invalid' : '' %>">

@@ -34,6 +34,7 @@ export async function nyskraCheck(req, res, next){
 
   const formData = { nameskra, username, password };
   const validated = req.isAuthenticated();
+  const { user } = req; 
   const validation = validationResult(req);
   const registrations = [];
 
@@ -46,7 +47,7 @@ export async function nyskraCheck(req, res, next){
   const rows = await list(sqlVidburdur);
 
   if ( !validation.isEmpty()) {
-    return res.render('index', { formData, registrations,  errors : validation.errors, events: rows, title, validated, admin: false });
+    return res.render('index', { formData, registrations,  errors : validation.errors, events: rows, title, user,  validated, admin: false });
   }
  
   return next();

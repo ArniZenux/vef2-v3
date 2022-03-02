@@ -44,19 +44,19 @@ export async function findById(id) {
   return null;
 }
 
-export async function createUser(username, password) {
+export async function createUser(nameuser, username, password, admin) {
   // Geymum hashað password!
   const hashedPassword = await bcrypt.hash(password, 11);
 
   const q = `
-    INSERT INTO
-      users (username, password)
-    VALUES ($1, $2)
+  INSERT INTO 
+    users(nameuser, username, password, admin) 
+  VALUES($1, $2, $3, $4);
     RETURNING *
   `;
 
   try {
-    const result = await query(q, [username, hashedPassword]);
+    const result = await query(q, [nameuser, username, hashedPassword, admin]);
     return result.rows[0];
   } catch (e) {
     console.error('Gat ekki búið til notanda');

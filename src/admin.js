@@ -46,23 +46,14 @@ async function index(req, res) {
   const title = 'Viðburðasíðan';
   
   const sqlVidburdur = `
-    SELECT 
+     SELECT 
       *
     FROM 
-      vidburdur, skraning, users 
+      vidburdur, users 
     WHERE 
-      vidburdur.id=skraning.eventid 
-    AND 
-      users.id=skraning.userid; 
-     `;
-  
-  /*const sqlVidburdur = `
-    SELECT 
-      *
-    FROM 
-      vidburdur
+      vidburdur.userid=users.id 
     `;
-  */
+  
   const rows = await list(sqlVidburdur);
   const validated = req.isAuthenticated();
   const errors = [];
@@ -72,10 +63,13 @@ async function index(req, res) {
 
   if(user.admin){
     console.log("admin - stjórnandi");
+    console.log(validated); 
     return res.render('index', { user, formData, errors, events: rows, title, admin: true, search: xss(search), validated});
   }
   else{
     console.log("no admin");
+    console.log(validated);
+    console.log(user);  
     return res.render('index', { user, formData, errors, events: rows, title, admin: false, search: xss(search), validated});
   }
 }
@@ -91,13 +85,13 @@ function login(req, res) {
   let message = '';
   const errors = [];
   const validated = req.isAuthenticated();
- 
+  const user = { req };
   if (req.session.messages && req.session.messages.length > 0) {
     message = req.session.messages.join(', ');
     req.session.messages = [];
   }
 
-  return res.render('login', {validated, errors, message, title: 'Innskráning' });
+  return res.render('login', {validated, user,  errors, message, title: 'Innskráning' });
 }
 
 /**
@@ -121,17 +115,25 @@ async function deleteRoute(req, res) {
 async function skraVidburdur(req, res){
   let success = true;   
   const validated = req.isAuthenticated();
+  const { user } = req; 
   const nameSlug = req.body.namevidburdur.split(' ').join('-').toLowerCase();
-  const info = [req.body.namevidburdur, nameSlug, req.body.comment];
-  
-  const sql = `
+  const info = [req.body.namevidburdur, nameSlug, req.body.comment, user.id];
+  console.log( info );
+
+  const sqlVidburdur = `
     INSERT INTO 
-      vidburdur(namevidburdur, slug, description) 
-    VALUES($1, $2, $3);
+      vidburdur(namevidburdur, slug, description, userid) 
+    VALUES($1, $2, $3, $4);
   `;
 
+  /*const sqlUser = `
+  INSERT INTO 
+    skraning(nameskra, ), description) 
+  VALUES($1, $2, $3);
+  `;*/
+
   try {
-    success = await insert(sql, info);
+    success = await insert(sqlVidburdur, info);
   }
   catch(e){
     console.error(e); 
@@ -141,7 +143,7 @@ async function skraVidburdur(req, res){
     return res.redirect('/admin');
   }
 
-  return res.render('error', {validated,  title: 'Gat ekki eytt færslu' });
+  return res.render('error', {validated,  title: 'Gat ekki skráð' });
 }
 
 /**
@@ -182,7 +184,7 @@ async function adminSlugPost(req, res){
 
 router.get('/', ensureLoggedIn, catchErrors(index));
 router.get('/login', login);
-router.post('/', ensureLoggedIn, vidburdMiddleware, catchErrors(vidburdCheck), catchErrors(skraVidburdur)); 
+
 router.post(
   '/login',
 
@@ -199,6 +201,7 @@ router.post(
 );
 
 router.post('/:slug', ensureLoggedIn, vidburdMiddleware, catchErrors(updateCheck), catchErrors(adminSlugPost)); 
+router.post('/', ensureLoggedIn, vidburdMiddleware, catchErrors(vidburdCheck), catchErrors(skraVidburdur)); 
 router.post('/delete/:id', ensureLoggedIn, catchErrors(deleteRoute));
 router.get('/logout', (req, res) => {
   // logout hendir session cookie og session

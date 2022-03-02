@@ -88,8 +88,9 @@ app.use('/', eventRouter);
 // eslint-disable-next-line no-unused-vars
 function notFoundHandler(req, res, next) {
   const validated = req.isAuthenticated();
+  const { user } = req;
   const title = 'Síða fannst ekki';
-  res.status(404).render('error', { title, validated });
+  res.status(404).render('error', { title, validated, user });
 }
 
 /**
@@ -103,9 +104,10 @@ function notFoundHandler(req, res, next) {
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
   const validated = req.isAuthenticated();
+  const { user } = req;
   console.error(err);
   const title = 'Villa kom upp';
-  res.status(500).render('error', { title, validated });
+  res.status(500).render('error', { title, validated, user });
 }
 
 app.use(notFoundHandler);
