@@ -11,7 +11,6 @@ import { router as eventRouter } from './events.js';
 import { router as adminRoute } from './admin.js';
 import { router as notandaRoute } from './notendur.js';
 
-
 dotenv.config();
 
 const {

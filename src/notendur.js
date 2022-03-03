@@ -46,7 +46,8 @@ async function listNotenda(req, res){
   const validated = req.isAuthenticated();
   const rows = await list(sql);
   const { user } = req;
-  return res.render('notendur', { events: rows, title, user, validated, BirtaOne : false });
+  //return res.render('notendur', { events: rows, title, user, validated, BirtaOne : false });
+  
 }
 
 async function einnNotandi(req, res){
@@ -92,7 +93,6 @@ async function nySkra(req, res) {
   
   try {
     success = await insert(sqlUser, info);
-    //success = await createUser(req.body.nameskra, req.body.username, req.body.password, false);
   }
   catch(e){
     console.error(e); 
@@ -100,34 +100,12 @@ async function nySkra(req, res) {
 
   if(success){
     const validated = req.isAuthenticated();
-    const title = 'Viðburðasíðan';
-    
     console.log(validated); 
-  
-    const sqlVidburdur = `
-      SELECT 
-        *
-      FROM 
-        vidburdur, users 
-      WHERE 
-        vidburdur.userid=users.id 
-    `;
-    
-    const rows = await list(sqlVidburdur);
-    const registrations = [];
-    const user = { req };
-    const errors = [];
-  
-    res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
-    //return res.redirect('/');
-    console.log("tokst!");
+    return res.redirect('/');
   }
-
-  //return res.render('error', {validated,  title: 'Gat ekki skráð' });
 }
 
 router.get('/', listNotenda);
 router.get('/:id', einnNotandi);
 router.get('/me', myInfo);
-//router.post('/register', nySkraMiddleware, catchErrors(nyskraCheck), catchErrors(nySkra));
 router.post('/register', catchErrors(nySkra));

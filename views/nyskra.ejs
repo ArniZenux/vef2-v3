@@ -1,0 +1,31 @@
+<hr>
+<h1>Nýskráning</h1>
+ <form class="form" method="post" action="/notandi/register" autocomplete="off">
+  
+  <div class="field<%= locals.isInvalid('nameskra', errors) ?  ' field--invalid' : '' %>">
+    <label for="nameskra">Nafn</label>
+    <input type="text" name="nameskra" id="nameskra">
+  </div>
+
+  <div class="field<%= locals.isInvalid('username', errors) ?  ' field--invalid' : '' %>">
+    <label for="username">Notendanafn</label>
+    <input type="text" name="username" id="username">
+  </div>
+
+  <div class="field<%= locals.isInvalid('password', errors) ?  ' field--invalid' : '' %>">
+    <label for="password">Lykilorð</label>
+    <input type="password" name="password" id="password">
+  </div>
+
+  <div class="villa">
+    <% if (errors.length > 0) { %>
+    <h2>Villur:</h2>
+    <ul>
+      <% errors.forEach((error) => { %>
+        <li><label for="<%= error.param %>"><%= error.msg %></label></li>
+      <% }); %>
+    </ul>
+  <% } %>
+  </div>
+ <button class="button button--margin">Nýskrá</button>
+</form>

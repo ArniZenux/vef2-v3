@@ -9,11 +9,11 @@
   <header>
     <section>
       <h1><%= title %></h1>
-       <% if(user.admin == true) { %>
+       <% if(validated && user.admin == true) { %>
           <div class="stjornandi"><a href="/admin/">Stjórnandi</a></div> 
           <div class="notandi"><a href="/notandi/">Lista af notenda</a></div> 
           <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
-        <% } else if(user.admin == false) { %> 
+        <% } else if( validated && user.admin == false) { %> 
           <div class="stjornandi"><%= user.nameuser %></div> 
           <div class="utskra"><a href="/admin/logout">Útskrá</a></div>
         <% } else { %>

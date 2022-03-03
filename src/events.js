@@ -56,14 +56,23 @@ async function index(req, res) {
   const user = { req };
   const errors = [];
 
-  res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
+  
+  const output = JSON.stringify({
+    title,
+    validated,
+    rows,
+    user,
+  });
+
+  //res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
+  return res.send(output); 
 }
 
 /**     
  *  GET - Ná ein viðburð undir admin og birta uppfæra-siðu
  */
 async function getVidburdur(req, res){
-  const { slug } = req.params;
+  const { id } = req.params;
   const title = 'Viðburðasíðan';
   const validated = req.isAuthenticated();
   const user = { req };
@@ -72,7 +81,7 @@ async function getVidburdur(req, res){
     SELECT * FROM 
       vidburdur 
     WHERE 
-      vidburdur.slug = $1;
+      vidburdur.id = $1;
     `;
 
   const sqlUser = `
@@ -88,10 +97,11 @@ async function getVidburdur(req, res){
   const formData = [];
 
   try {
-    const rows = await list(sql, [slug]); 
-    const rowsUser = await list(sqlUser, [slug]); 
+    const rows = await list(sql, [id]); 
+    const rowsUser = await list(sqlUser, [id]); 
 
-    res.render('vidburd', {errors, title, events : rows, users : rowsUser, user, formData, validated, admin : false });
+    res.render('vidburd', { user, formData, errors, title, events : rows, users : rowsUser, admin : true, validated });
+
   }
   catch(e){
     console.error(e); 
@@ -99,38 +109,40 @@ async function getVidburdur(req, res){
 }
 
 /**
- *  POST - að skrá í skraning - table
+ *  POST - notandi skráð viðburði. 
  */
-async function indexSlugPost(req, res){
-  const user = [req.body.name, req.body.comment, req.body.id, req.id];
-  
-  console.log(user); 
+async function userPostNewEvent(req, res){
+  let success = true;   
+  const validated = req.isAuthenticated();
+  const { user } = req; 
+  const nameSlug = req.body.namevidburdur.split(' ').join('-').toLowerCase();
+  const info = [req.body.namevidburdur, nameSlug, req.body.comment, user.id];
+  console.log(info); 
+  console.log("Hello Pútin - þú ert geðsjúklingur!!");
 
- /*return res.redirect('/');
-
-  const sql = `
+  const sqlVidburdur = `
     INSERT INTO 
-      skraning(nameskra, comment, eventid, userid) 
+      vidburdur(namevidburdur, slug, description, userid) 
     VALUES($1, $2, $3, $4);
   `;
 
-  let success = true; 
-  
   try {
-    success = insert(sql, user);
+    success = await insert(sqlVidburdur, info);
   }
   catch(e){
     console.error(e); 
   }
 
   if(success){
-    return res.redirect('/');
+    return res.redirect('/admin');
   }
 
-  return success;*/
-
+  return res.render('error', {validated,  title: 'Gat ekki skráð' });
 }
 
-router.get('/', catchErrors(index));
-router.get('/:slug', getVidburdur);
-router.post('/:slug', userMiddleware, catchErrors(userCheck), catchErrors(indexSlugPost));
+router.get('/', index);
+router.get('/:id', getVidburdur);
+//router.patch('/:id', getVidburdur);
+//router.delete(d)
+router.post('/', catchErrors(userPostNewEvent));
+//router.post('/:id/register', catchErrors(userPostEvent));
