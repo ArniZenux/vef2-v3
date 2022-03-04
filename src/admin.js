@@ -49,9 +49,7 @@ async function index(req, res) {
      SELECT 
       *
     FROM 
-      vidburdur, users 
-    WHERE 
-      vidburdur.userid=users.id 
+      vidburdur 
     `;
   
   const rows = await list(sqlVidburdur);

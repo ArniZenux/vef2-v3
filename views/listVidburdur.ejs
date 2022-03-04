@@ -1,0 +1,11 @@
+<ul>
+<% if(events) { %>
+  <% for(let event of events ) { %>
+    <li> <%= event.namevidburdur %> </a> </li>
+    <p> <%= event.description %> </p>
+    <br>
+    <% } %>
+  <% } else { %>  
+<li> Engir viðburðir </li> 
+<% } %>
+</ul>

@@ -1,30 +1,20 @@
 <%- include('header') -%>
-
 <section class="registrations">
 
-<ul>
-  <% if(events) { %>
-    <% for(let event of events ) { %>
-      <li> <a href="<%= event.id %>"> <%= event.namevidburdur %> </a> </li>
-      <p> <%= event.description %> </p>
-      <p> Ábyrgðarmaður á viðburði : <%= event.nameuser %> </p> 
-      <br>
-      <% } %>
-    <% } else { %>
-  <li> Engir viðburðir </li> 
-  <% } %>
-</ul>
+<% if( !validated )  { %>
+ <%- include('listVidburdur') -%>
+ <%- include('nyskra') -%>
+<% } %>
 
 <% if( validated && user.admin ) { %>
+  <%- include('openlistVidburdur') -%>
   <%- include('adminVidburdur') -%>
 <% } %>
 
 <% if( validated && user.admin==false ) { %>
+  <%- include('openlistVidburdur') -%>  
   <%- include('user_vidburdur') -%>
 <% } %>
 
-<% if( !validated )  { %>
-  <%- include('nyskra') -%>
-<% } %>
 </section>
 <%- include('footer') -%>

@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import xss from 'xss';
+import passport, { ensureLoggedIn } from './login.js';
 
 import { list, insert } from './db_psql.js';
 import { userCheck } from './check.js';
@@ -46,25 +47,21 @@ async function index(req, res) {
     SELECT 
       *
     FROM 
-      vidburdur, users 
-    WHERE 
-      vidburdur.userid=users.id 
+      vidburdur
   `;
   
   const rows = await list(sqlVidburdur);
   const registrations = [];
   const user = { req };
   const errors = [];
-
   
   const output = JSON.stringify({
     title,
-    validated,
     rows,
-    user,
+    validated
   });
 
-  //res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
+  //return res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
   return res.send(output); 
 }
 
@@ -99,9 +96,12 @@ async function getVidburdur(req, res){
   try {
     const rows = await list(sql, [id]); 
     const rowsUser = await list(sqlUser, [id]); 
-
+    
+    let success = user.admin; 
     res.render('vidburd', { user, formData, errors, title, events : rows, users : rowsUser, admin : true, validated });
-
+    console.log(validated + ' og ' + success);
+    console.log(validated + ' og ' + user.admin);
+    
   }
   catch(e){
     console.error(e); 
@@ -117,8 +117,6 @@ async function userPostNewEvent(req, res){
   const { user } = req; 
   const nameSlug = req.body.namevidburdur.split(' ').join('-').toLowerCase();
   const info = [req.body.namevidburdur, nameSlug, req.body.comment, user.id];
-  console.log(info); 
-  console.log("Hello Pútin - þú ert geðsjúklingur!!");
 
   const sqlVidburdur = `
     INSERT INTO 
@@ -141,7 +139,7 @@ async function userPostNewEvent(req, res){
 }
 
 router.get('/', index);
-router.get('/:id', getVidburdur);
+router.get('/:id', ensureLoggedIn,  getVidburdur);
 //router.patch('/:id', getVidburdur);
 //router.delete(d)
 router.post('/', catchErrors(userPostNewEvent));

@@ -1,6 +1,5 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
-import xss from 'xss';
 
 import { body } from 'express-validator';
 import { list, insert } from './db_psql.js';
@@ -46,8 +45,7 @@ async function listNotenda(req, res){
   const validated = req.isAuthenticated();
   const rows = await list(sql);
   const { user } = req;
-  //return res.render('notendur', { events: rows, title, user, validated, BirtaOne : false });
-  
+  return res.render('notendur', { events: rows, title, user, validated, BirtaOne : false });
 }
 
 async function einnNotandi(req, res){
@@ -70,7 +68,7 @@ async function einnNotandi(req, res){
 }
 
 async function myInfo(req, res){
-  console.log("Upplýsingar um sjálf notanda");
+  res.send('Upplýsingar um sjálf notanda');
 }
 
 async function nySkra(req, res) {

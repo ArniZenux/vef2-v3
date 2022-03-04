@@ -3,9 +3,9 @@ verkefni sem þarf að klára
 1: heroku 
 2: Test - db.test.js
 
-3: Notandi býr til viðburð
-4: Notandi eyða viðburð
-5: Notandi uppfærir viðburð
+3: Notandi býr til viðburð   	100%
+4: Notandi eyða viðburði	 	
+5: Notandi uppfærir viðburði	
 
 6: Stjórnadi opna viðburði og header hverfur "stjórnadi og útskrá".
 7: Stjórnadi fer tilbaka frá uppfæra þá hverfur "stjórnandi og útskrá" í header.
