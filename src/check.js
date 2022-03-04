@@ -1,6 +1,5 @@
 import { validationResult } from 'express-validator';
 import { list } from './db_psql.js';
-import xss from 'xss';
 
 export async function vidburdCheck(req, res, next) {
   const title = 'Viðburðasíðan';
@@ -22,7 +21,16 @@ export async function vidburdCheck(req, res, next) {
   const { user } = req;
 
   if ( !validation.isEmpty() && user.admin ) {
-    return res.render('index', { user, formData, errors : validation.errors, events: rows, title, admin: true, search: xss(search), validated});
+    return res.render('index', 
+      { 
+        user, 
+        formData, 
+        errors : validation.errors, 
+        events: rows, 
+        title, 
+        admin: true, 
+        validated
+     });
   }
  
   return next();
@@ -47,7 +55,17 @@ export async function nyskraCheck(req, res, next){
   const rows = await list(sqlVidburdur);
 
   if ( !validation.isEmpty()) {
-    return res.render('index', { formData, registrations,  errors : validation.errors, events: rows, title, user,  validated, admin: false });
+    return res.render('index', 
+      { 
+        formData, 
+        registrations,  
+        errors : validation.errors, 
+        events: rows, 
+        title, 
+        user,  
+        validated, 
+        admin: false 
+    });
   }
  
   return next();

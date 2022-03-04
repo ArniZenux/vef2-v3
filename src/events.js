@@ -1,47 +1,14 @@
 import express from 'express';
-import { body, validationResult } from 'express-validator';
-import xss from 'xss';
-import passport, { ensureLoggedIn } from './login.js';
+import { ensureLoggedIn } from './login.js';
 
 import { list, insert } from './db_psql.js';
-import { userCheck } from './check.js';
-import { catchErrors, pagingInfo, PAGE_SIZE, setPagenumber } from './utils.js';
+import { catchErrors } from './utils.js';
 
 export const router = express.Router();
-
-const userMiddleware = [
-  body('nameskra')
-    .isLength({ min: 1 })
-    .withMessage('Nafn má ekki vera tómt'),
-  body('nameskra')
-    .isLength({ max: 64 })
-    .withMessage('Nafn má að hámarki vera 64 stafir'),
-  body('comment')
-    .isLength({ min: 1 })
-    .withMessage('Vantar athugasemd'),
-  body('comment')
-    .isLength({ max: 400 })
-    .withMessage('Athugasemd má að hámarki vera 400 stafir'),
-];
-
-// Viljum keyra sér og með validation, ver gegn „self XSS“
-const xssSanitizationMiddleware = [
-  body('name').customSanitizer((v) => xss(v)),
-  body('nationalId').customSanitizer((v) => xss(v)),
-  body('comment').customSanitizer((v) => xss(v)),
-  body('anonymous').customSanitizer((v) => xss(v)),
-];
-
-const sanitizationMiddleware = [
-  body('name').trim().escape(),
-  body('nationalId').blacklist('-'),
-];
 
 async function index(req, res) {
   const validated = req.isAuthenticated();
   const title = 'Viðburðasíðan';
-  
-  console.log(validated); 
 
   const sqlVidburdur = `
     SELECT 
@@ -61,7 +28,9 @@ async function index(req, res) {
     validated
   });
 
-  //return res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
+  /**
+   * return res.render('index', {errors, events: rows, registrations, title, user,  admin: false, validated });
+   */
   return res.send(output); 
 }
 
@@ -97,11 +66,16 @@ async function getVidburdur(req, res){
     const rows = await list(sql, [id]); 
     const rowsUser = await list(sqlUser, [id]); 
     
-    let success = user.admin; 
-    res.render('vidburd', { user, formData, errors, title, events : rows, users : rowsUser, admin : true, validated });
-    console.log(validated + ' og ' + success);
-    console.log(validated + ' og ' + user.admin);
-    
+    res.render('vidburd', 
+      { user, 
+        formData, 
+        errors, 
+        title, 
+        events : rows, 
+        users : rowsUser, 
+        admin : true, 
+        validated 
+    });
   }
   catch(e){
     console.error(e); 

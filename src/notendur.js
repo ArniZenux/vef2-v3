@@ -4,9 +4,7 @@ import bcrypt from 'bcrypt';
 import { body } from 'express-validator';
 import { list, insert } from './db_psql.js';
 import passport, { ensureLoggedIn } from './login.js';
-import { nyskraCheck } from './check.js';
-import { createUser } from './users.js';
-import { catchErrors, pagingInfo, PAGE_SIZE } from './utils.js';
+import { catchErrors } from './utils.js';
 
 export const router = express.Router();
 
@@ -45,7 +43,13 @@ async function listNotenda(req, res){
   const validated = req.isAuthenticated();
   const rows = await list(sql);
   const { user } = req;
-  return res.render('notendur', { events: rows, title, user, validated, BirtaOne : false });
+  return res.render('notendur', 
+    { events: rows, 
+      title, 
+      user, 
+      validated, 
+      BirtaOne : false 
+    });
 }
 
 async function einnNotandi(req, res){
@@ -64,7 +68,13 @@ async function einnNotandi(req, res){
   const validated = req.isAuthenticated();
   const { user } = req;
   const rows = await list(sql, id);
-  return res.render('notendur', { events: rows, title, user, validated, BirtaOne : true });
+  return res.render('notendur', 
+    { events: rows, 
+      title, 
+      user, 
+      validated, 
+      BirtaOne : true 
+    });
 }
 
 async function myInfo(req, res){
@@ -74,12 +84,7 @@ async function myInfo(req, res){
 async function nySkra(req, res) {
   
   const hashedPassword = await bcrypt.hash(req.body.password, 11);
-  
-  console.log(hashedPassword);
-  
   const info = [req.body.nameskra, req.body.username, hashedPassword, false];
-  console.log(info);
-  console.log("Hello nýr notandi");
     
   let success = true;   
 
@@ -97,8 +102,6 @@ async function nySkra(req, res) {
   }
 
   if(success){
-    const validated = req.isAuthenticated();
-    console.log(validated); 
     return res.redirect('/');
   }
 }

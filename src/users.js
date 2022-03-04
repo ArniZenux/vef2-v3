@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { query } from './db.js';
+import { query } from './db_psql.js';
 
 export async function comparePasswords(password, hash) {
   try {
